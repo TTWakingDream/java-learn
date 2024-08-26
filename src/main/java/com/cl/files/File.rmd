@@ -1,0 +1,41 @@
+File:
+    构造方法
+    路径分隔符：Java\\ windows\ linux/
+    路径表示方法：.当前目录，..上级目录，/根目录
+    获取路径分隔符：File.separator-静态变量，表示当前系统文件路径分隔符
+    File表示路径的三种方式：
+        getPath()
+        getAbsolutePath()
+        getCanonicalPath()
+
+    File既表示文件，也表示目录；
+        File表示文件是否不用分隔符结尾；File表示目录是否强制分隔符结尾；？？？---->实测无此上规则
+
+    File相关方法：
+        isFile()
+        isDirectory()
+        exists()
+        canRead()
+        canWrite()
+        canExecute()
+        length()
+    创建和删除文件
+        创建删除：
+            new File("");
+            createNewFile();
+            delete();
+        创建临时文件
+            createTempFile();
+            deleteOnExit();该方法删除时是在jvm退出时自动删除，而不是方法执行后；
+    遍历文件目录
+        list(); 列出所有文件和子目录
+        listFiles(); 仅列出文件；要关注该方法的相关重载方法；
+注意：创建File对象不是IO操作，对File文件进行读写操作才是IO；
+
+Path：javaNIO类，和File对象类似，但是操作更加简单；
+    Paths.get("","","");构造Path对象
+    转化绝对路径
+    转化规范路径
+    转化为文件
+    Paths.get("..").toAbsolutePath(); Path遍历
+    注意：如果当你需要对目录进行复杂的拼接遍历等操作，Path是最实用的；

@@ -1,0 +1,21 @@
+ZipIO:
+    ZipInputStream:
+        new ZipInputStream(FileInputStream);
+        while(ZipEntry entry = zipInputStream.getNextEntry()){
+            // 判断是否file
+            // 读取文件到内存
+        }
+
+
+    ZipOutputStream:
+        new ZipOutputStream(FileOutputStream);
+        zip.putNextEntry(new ZipEntry(file.getName()));
+        zip.write(Files.readAllBytes(file.toPath()));
+        zip.closeEntry();
+
+
+Classpath读取文件：
+    ClassLoader.getSystemResourceAsStream(fileName);
+    InputStream is = getClass().getResourceAsStream(); //getResourceAsStream(fileName)当文件不存在，会返回null;需要注意
+    Properties类使用：既有默认的配置文件，又可以让用户自定义修改
+

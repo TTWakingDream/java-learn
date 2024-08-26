@@ -1,0 +1,35 @@
+InputStream: java标准库提供的最基础的输入流；
+    是抽象类，并不是一个接口；所有输入流的超类；
+    方法：
+        int read()：读取一个字节；返回值：读取到的字节；-1：没有可读的字节；
+        int read(byte[] b)：读取多个字节；返回值：读取到的字节数；-1：没有可读的字节；
+        int read(byte[] b, int off, int len)：读取多个字节；返回值：读取到的字节数；-1：没有可读的字节；
+        void close()：关闭流；
+    在计算机中，文件、网络端口都是由操作系统统一管理的资源，当打开一个文件进行读写之后，需要及时的关闭掉文件流，以便让操作系统释放底层资源；应用程序占用的资源会越来越多，影响其他程序运行；
+    在IO过程中，可能存在各种各样的IO异常，导致IO流关闭失败；所以需要Try……cathc……finally;
+    Java7提供了try(resource){}来实现自动关闭资源
+    常见的I流：
+        FileInputStream：将文件转化为IS;
+        ByteArrayInputStream：将Byte数组转化为IS
+
+OutputStream：java标准库提供的最基础的输出流；
+    是所有输出流的超类；
+    方法：
+        public abstract void write(int b) throws IOException;该方法写入一个字节到输出流；虽然传入的是int类型，但是实际指挥写入一个byte，也即是int最低的八位bit；
+        void write(byte[] b)：写入多个字节；
+        void write(byte[] b, int off, int len)：写入多个字节；
+        void close()：关闭流；
+        void flush()：刷新流；
+        相对于IS，多了一个flush方法；这是因为在设计计算机的时候，出于对效率的考虑（一次向磁盘或者网络写入一个字节和1000个字节的时间成本几乎一样）；向磁盘或者网络写入数据时，操作系统先将输出的数据存放在内存的缓冲区；等缓冲区满了之后，再一次性的写入磁盘或者网络；
+        flush方法就是将缓冲区中的数据写入到磁盘或者网络；
+        缓冲区：实际上IS也有缓冲区，例如从FileInputStream读取一个字节时，操作系统往往会一次读取多个字节到缓冲区；并维护一个指针，指向未读的缓冲区的起始位置；当调用read()方法读取一个字节时，往往直接返回缓冲区中下一个字节；避免每次出发IO操作；
+    常见的O流：
+        FileOutputStream：将文件转化为OS;
+        ByteArrayOutputStream：将Byte数组转化为OS
+
+Decorator模式\Filter模式：
+    为了避免子类爆炸，同时又能满足为对应的IO流添加功能；采用了装饰器模式；
+        可以将一个IS与任意个FilterInputStream组合；
+        可以将一个OS与人一个FilterOutputStream组合；
+    根据数据源来源不同分为IS和FilterIS；根据数据目的不同分为OS和FilterOS；
+

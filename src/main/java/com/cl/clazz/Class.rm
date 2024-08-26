@@ -1,0 +1,94 @@
+除去基本类型其余全是class(包括interface)
+class(含interface)本质是数据类型，无继承关系的类型无法互相赋值
+
+class是JVM动态加载的，JVM第一次读取到一种class类型时，就将其加载入内存；每加载一种class，JVM就为其创建一个Class类型的时利，并关联起来；
+
+class类存储了类的所有元数据，例如全类名，父类，接口，方法，字段，常量，注解，构造器等。
+    构造Class类的方法：
+        1.类名.class
+        2.实例.getClass()
+        3.Class.forName("全类名")
+        注意：由于Class类实例在JVM时唯一的，所以以上方法获取Class实际是同一个实例，可以用==进行比较
+
+        注意：==比较class和instanceof比较类型的区别
+
+
+    通过反射获取Class类实例：
+        1.obj.getClass()
+    通过class可以创造对应实例对象
+    1.Class.newInstance() // 该方法只能调用默认构造器（public修饰的无参构造器），不能调用其他构造器
+    2.Constructor.newInstance() //
+    3.Class.getConstructor().newInstance()
+
+动态加载：JVM不会一次性把所有需要的Class类加载到内存中，只有需要使用Class的时候才会加载
+
+
+访问字段——Field：
+    Class获取字段的方法：
+        Field getField(name) 获取当前类及其父类的某个public字段
+        Field getDeclaredField(name) 获取当前类某个字段（不含父类，不限制public）
+        List<Field> getFields()   获取当前类所有public字段
+        List<Field> getDeclaredFields() 获取当前类所有的field字段(不含父类，不限制public)
+
+    Field字段方法：
+       String getName()
+       Class<?> getType()
+       int getModifier()
+           Modifier.isFinal(modifier)
+           Modifier.isPublic(modifier)
+           Modifier.isStatic(modifier)
+           Modifier.isPrivate(modifier)
+           Modifier.isProtected(modifier)
+           Modifier.isAbstract(modifier)
+       获取字段值：
+           Object field.get(Object obj)
+           field.setAccessible(true);//设置任意权限均可访问，可能会失败，JVM会尝试修改权限，如果失败，会抛出异常
+       设置字段值：
+           field.set(obj, value);
+
+
+调用方法——Method
+    Class获取Method的方法
+        getMethod(name,Class…)
+        getDeclaredMethod(name, Class…)
+        getMethods()
+        getDeclaredMethods()
+    Method类方法：
+        String getName();
+        Class getReturnType();
+        Class<?>[] getParameterTypes();
+        int getModifiers();
+      调用方法
+        m.setAccessible(true);
+        m.invoke(obj, args);
+      调用静态方法
+        m.invoke(null, args);对象默认为null
+      调用多态方法
+        ParentClass subClassObj = new SubClass();
+        m.invoke(subClassObj, args); //依然根据多态调用；
+
+
+获取构造方法：
+    Class获取构造方法：
+        getConstructor(class…)
+        getDeclaredConstructor(Class…)
+        getConstructors()
+        getDeclaredConstructors()
+        注意：Constructor总是定义在当前类定义中，不存在多态问题
+        使用非public构造器需要提前使用setAccessible(ture)
+
+
+获取继承关系：
+    Class获取父类：
+        getSuperclass() \\返回当前类的直接超类，仅为Class类型
+        getGenericSuperclass() \\ 返回当前类的直接超类的类型参数化信息（无泛型返回Class，存在泛型返回ParameterizedType）；如果无法返回具体的参数类型。可能返回GenericDeclaration；不存在返回null;
+
+    Class获取接口信息
+        getInterfaces() \\返回数组，只包含直接继承的接口；返回顺序仅和声明顺序有关，不包含泛型信息
+        getGenericInterfaces()
+
+    判断类型信息：
+        instanceof
+        isAssignableFrom(): 判断class类型是否支持向上转型
+
+

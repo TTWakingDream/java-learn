@@ -1,0 +1,22 @@
+注解：放在Java源码的类、方法、参数、字段前的一种特殊注释，是一种用作标注的元数据 \\注释会被编译器忽视，但是注解会被编译器打包进入的class文件中
+    分类：
+        1. 由编译器使用的注解 @Override @SuppressWarnings \\该类注解不会被编译器编译进入class文件，在编译完之后就被抛弃；
+        2. 由工具处理.class文件使用的注解，该类注解会被编译进入.class文件；但是不会被加载到内存中，一般由底层库使用，
+        3. 在程序运行期能够被读取的注解，被加载后一直存在于JVM中
+    配置参数：
+        可以是基本类型，String, Class, Enum以及他们的数组；
+        配置参数必须是常量，缺少某个配置参数将使用该参数的默认值；\\基于配置参数类型限制，每个配置参数都已经限制了它必有默认值
+        value配置参数比较特殊，当且仅有value时就可以省略value
+    关键字@interface
+
+    元注解：修饰其他注解的注解
+    @Target：注解的作用范围（TYPE FIELD METHOD PARAMETER CONSTRUCTOR)
+    @Retention: 注解作用域（RUNTIME CLASS SOURCE） 一般默认时RUNTIME，SOURCE类型在编译期间就被丢弃；CLASS类型
+    @Inherited: 子类是否可继承 \\仅针对ElementType.TYPE,且仅针对class的继承
+    @Repeatable: 是否可重复使用
+
+注解处理：
+    @Retention()配置生命周期中，我们仅需关注RUNTIME的注解；
+    使用注解：
+        判断注解是否存在 isAnnotationPresent()
+        获取注解 getAnnotation() \\如果不存在，返回null；

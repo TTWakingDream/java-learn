@@ -1,0 +1,26 @@
+泛型：
+    ArrayList不适用泛型，默认就是使用Object类型；
+    不适用泛型缺点：需要强制转化；很容易出现ClassCastException;
+                 使用子类StringArrayList extends ArrayList;\\子类膨胀
+    使用泛型优点：
+        编写一次，供任意类型使用；
+        编译时检查，避免ClassCastException;
+        支持向上转型： List<String> = new ArrayList<String>
+            注意：ArrayList<Integer>不可以转型为ArrayList<Number>,虽然Integer extends Number;但是前两者是没有继承关系的；如果发生这种转型就会导致ClassCastException;
+            注意：泛型仅支持引用类型，不能支持基本类型；
+
+    使用：
+        编译器自动推导；
+        泛型方法
+        泛型类型
+        泛型接口：
+
+    编写泛型：
+    // 不可以编译通过:
+    public static Pair<T> create(T first, T last) {
+        return new Pair<T>(first, last);
+    }
+    // 可以编译通过:
+    public static <T> Pair<T> create(T first, T last) {
+        return new Pair<T>(first, last);
+    }

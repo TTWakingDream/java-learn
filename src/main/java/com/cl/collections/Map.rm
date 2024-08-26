@@ -1,0 +1,4 @@
+Map
+    HashMap：以空间换时间，key无序，效率与hash算法有关
+    SortedMap
+        TreeMap：key有序，key必须实现comparable接口（必须标准实现，否则排序有问题）或者手动传入Comparator
