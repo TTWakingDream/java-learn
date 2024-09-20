@@ -1,0 +1,16 @@
+:h vim-modes 阅读vim文档
+
+vim工作模式：normal mode\Insert Mode\Command-line Mode
+    普通模式下才能运行命令 例如:h vim-modes
+            进入普通模式:ESC \\其他模式切换到Normal Mode;NormalMode保持NormalMode;
+    插入模式用来进行文本编辑；插入模式下不能运行命令;
+            进入命令模式：当打开一个文件的时候，输入i就进入vim的插入模式；
+    命令模式：一种短期模式，用来运行ex命令行
+            进入命令模式：普通模式下输入:
+    退出vim：通过:q或者:quit
+            :wq 写入并退出
+            :x 在做出更改时写入并退出
+            :q! 强制退出
+            Ctrl+C 退出    Ctrl+Alt+Delete强制退出  ForceQuit
+
+

@@ -24,3 +24,16 @@
     public static <T> Pair<T> create(T first, T last) {
         return new Pair<T>(first, last);
     }
+    注意： 静态方法里的泛型和泛型类声明的泛型无关；
+
+    泛型通配符：extends super 无限制通配符
+        <? extends T> 表示T和T的子类，可以? get(),不能set(?);
+            void set(Pair<>)
+
+        <? super T> 表示T和T的父类，可以set(?),不能get()；
+
+        PECS原则：生产者（Producer）用上界，消费者（Consumer）用下界;
+    泛型和反射：
+        声明带泛型的数组不能new创建，必须通过强制转型；
+
+
